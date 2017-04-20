@@ -13,8 +13,17 @@
 
         public void setSubject(Subject sub)
         {
+            if (null != this.sub)
+            {
+                this.sub.unregister(this);
+            }
+
             this.sub = sub;
-            sub.register(this);
+
+            if (null != this.sub)
+            {
+                sub.register(this);
+            }
         }
 
         public void update()
@@ -25,7 +34,10 @@
 
         ~MessageSubscriber()
         {
-            sub.unregister(this);
+            if (null != sub)
+            {
+                sub.unregister(this);
+            }
         }
     }
 }
